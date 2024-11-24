@@ -55,6 +55,14 @@
       "status": "Active",
       "createdAt": 1732466286509,
       "id": 7
+    },
+    {
+      "name": "NagaJoythi",
+      "email": "nago@gmail.com",
+      "role": "Team Lead",
+      "status": "Active",
+      "createdAt": 1732467821953,
+      "id": 8
     }
   ],
   "roles": [
@@ -148,6 +156,17 @@
         "view"
       ],
       "id": 8
+    },
+    {
+      "name": "Executive Director",
+      "description": "This is ED.",
+      "permissions": [
+        "users_read",
+        "user_write",
+        "role_read",
+        "role_write"
+      ],
+      "id": 9
     }
   ],
   "permissions": [

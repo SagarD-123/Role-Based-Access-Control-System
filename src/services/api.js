@@ -6,61 +6,61 @@ import {
   deletePermission as deleteMockPermission
 } from './mockData';
 
-const API_URL = 'http://localhost:3001';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://json-server-rbac.onrender.com';
 
 const api = {
-  getUsers: () => 
-    axios.get('http://localhost:3001/users')
-      .then(res => res.data),
-      
+  getUsers: async () => {
+    const response = await fetch(`${API_BASE_URL}/users`);
+    return response.json();
+  },
   createUser: (userData) =>
-    axios.post('http://localhost:3001/users', userData)
+    axios.post(`${API_BASE_URL}/users`, userData)
       .then(res => res.data),
       
   updateUser: (id, userData) =>
-    axios.put(`http://localhost:3001/users/${id}`, userData)
+    axios.put(`${API_BASE_URL}/users/${id}`, userData)
       .then(res => res.data),
       
   deleteUser: (id) =>
-    axios.delete(`http://localhost:3001/users/${id}`)
+    axios.delete(`${API_BASE_URL}/users/${id}`)
       .then(res => res.data),
 
   getRoles: () =>
-    axios.get('http://localhost:3001/roles')
+    axios.get(`${API_BASE_URL}/roles`)
       .then(res => res.data),
 
   createRole: (roleData) =>
-    axios.post('http://localhost:3001/roles', roleData)
+    axios.post(`${API_BASE_URL}/roles`, roleData)
       .then(res => res.data),
 
   updateRole: (id, roleData) =>
-    axios.put(`http://localhost:3001/roles/${id}`, roleData)
+    axios.put(`${API_BASE_URL}/roles/${id}`, roleData)
       .then(res => res.data),
 
   deleteRole: (id) =>
-    axios.delete(`http://localhost:3001/roles/${id}`)
+    axios.delete(`${API_BASE_URL}/roles/${id}`)
       .then(res => res.data),
 
   getPermissions: () =>
-    axios.get('http://localhost:3001/permissions')
+    axios.get(`${API_BASE_URL}/permissions`)
       .then(res => res.data),
 
   createPermission: (permissionData) =>
-    axios.post('http://localhost:3001/permissions', permissionData)
+    axios.post(`${API_BASE_URL}/permissions`, permissionData)
       .then(res => res.data),
 
   updatePermission: (id, permissionData) =>
-    axios.put(`http://localhost:3001/permissions/${id}`, permissionData)
+    axios.put(`${API_BASE_URL}/permissions/${id}`, permissionData)
       .then(res => res.data),
 
   deletePermission: (id) =>
-    axios.delete(`http://localhost:3001/permissions/${id}`)
+    axios.delete(`${API_BASE_URL}/permissions/${id}`)
       .then(res => res.data),
 
   // Bulk delete users
   bulkDeleteUsers: async (ids) => {
     try {
-      const response = await axios.delete(`${API_URL}/bulk/users`, {
+      const response = await axios.delete(`${API_BASE_URL}/bulk/users`, {
         data: { ids: ids.map(id => Number(id)) }  // Ensure IDs are numbers
       });
       if (!response.data.success) {
@@ -75,7 +75,7 @@ const api = {
   // Bulk delete roles
   bulkDeleteRoles: async (ids) => {
     try {
-      const response = await axios.delete(`${API_URL}/bulk/roles`, {
+      const response = await axios.delete(`${API_BASE_URL}/bulk/roles`, {
         data: { ids: ids.map(id => Number(id)) }  // Ensure IDs are numbers
       });
       if (!response.data.success) {
