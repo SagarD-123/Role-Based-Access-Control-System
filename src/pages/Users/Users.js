@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -18,10 +18,13 @@ import api from '../../services/api';
 function Users() {
   const { showNotification } = useNotification();
   const { users, setUsers } = useApp();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [selectedUsers, setSelectedUsers] = useState([]);
+
+  console.log(users,'users');
 
   const columns = [
     { 
@@ -148,6 +151,26 @@ function Users() {
       return [...prev, userId];
     });
   };
+
+  useEffect(() => {
+    const loadUsers = async () => {
+      try {
+        setLoading(true);
+        const data = await api.getUsers();
+        setUsers(data);
+      } catch (error) {
+        setError(error.message);
+        console.error('Failed to load users:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadUsers();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">

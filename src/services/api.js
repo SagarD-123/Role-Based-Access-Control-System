@@ -1,91 +1,174 @@
 import axios from 'axios';
-import { 
-  initialPermissions, 
-  addPermission, 
-  updatePermission as updateMockPermission,
-  deletePermission as deleteMockPermission
-} from './mockData';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://json-server-rbac.onrender.com';
+const API_BASE_URL = 'https://json-server-rbac.onrender.com';
+
+const axiosInstance = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
 
 const api = {
+  // Users endpoints
   getUsers: async () => {
-    const response = await fetch(`${API_BASE_URL}/users`);
-    return response.json();
+    try {
+      const response = await axiosInstance.get('/users');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      throw error;
+    }
   },
-  createUser: (userData) =>
-    axios.post(`${API_BASE_URL}/users`, userData)
-      .then(res => res.data),
-      
-  updateUser: (id, userData) =>
-    axios.put(`${API_BASE_URL}/users/${id}`, userData)
-      .then(res => res.data),
-      
-  deleteUser: (id) =>
-    axios.delete(`${API_BASE_URL}/users/${id}`)
-      .then(res => res.data),
 
-  getRoles: () =>
-    axios.get(`${API_BASE_URL}/roles`)
-      .then(res => res.data),
+  createUser: async (userData) => {
+    try {
+      const response = await axiosInstance.post('/users', userData);
+      return response.data;
+    } catch (error) {
+      console.error('Error creating user:', error);
+      throw error;
+    }
+  },
 
-  createRole: (roleData) =>
-    axios.post(`${API_BASE_URL}/roles`, roleData)
-      .then(res => res.data),
+  updateUser: async (id, userData) => {
+    try {
+      const response = await axiosInstance.put(`/users/${id}`, userData);
+      return response.data;
+    } catch (error) {
+      console.error('Error updating user:', error);
+      throw error;
+    }
+  },
 
-  updateRole: (id, roleData) =>
-    axios.put(`${API_BASE_URL}/roles/${id}`, roleData)
-      .then(res => res.data),
+  deleteUser: async (id) => {
+    try {
+      const response = await axiosInstance.delete(`/users/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      throw error;
+    }
+  },
 
-  deleteRole: (id) =>
-    axios.delete(`${API_BASE_URL}/roles/${id}`)
-      .then(res => res.data),
-
-  getPermissions: () =>
-    axios.get(`${API_BASE_URL}/permissions`)
-      .then(res => res.data),
-
-  createPermission: (permissionData) =>
-    axios.post(`${API_BASE_URL}/permissions`, permissionData)
-      .then(res => res.data),
-
-  updatePermission: (id, permissionData) =>
-    axios.put(`${API_BASE_URL}/permissions/${id}`, permissionData)
-      .then(res => res.data),
-
-  deletePermission: (id) =>
-    axios.delete(`${API_BASE_URL}/permissions/${id}`)
-      .then(res => res.data),
-
-  // Bulk delete users
   bulkDeleteUsers: async (ids) => {
     try {
-      const response = await axios.delete(`${API_BASE_URL}/bulk/users`, {
-        data: { ids: ids.map(id => Number(id)) }  // Ensure IDs are numbers
+      const response = await axiosInstance.delete('/users', {
+        data: { ids: ids.map(id => Number(id)) }
       });
-      if (!response.data.success) {
-        throw new Error('Failed to delete users');
-      }
       return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.error || 'Failed to delete users');
+      console.error('Error bulk deleting users:', error);
+      throw error;
     }
   },
 
-  // Bulk delete roles
-  bulkDeleteRoles: async (ids) => {
+  // Roles endpoints
+  getRoles: async () => {
     try {
-      const response = await axios.delete(`${API_BASE_URL}/bulk/roles`, {
-        data: { ids: ids.map(id => Number(id)) }  // Ensure IDs are numbers
-      });
-      if (!response.data.success) {
-        throw new Error('Failed to delete roles');
-      }
+      const response = await axiosInstance.get('/roles');
       return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.error || 'Failed to delete roles');
+      console.error('Error fetching roles:', error);
+      throw error;
     }
   },
+
+  createRole: async (roleData) => {
+    try {
+      const response = await axiosInstance.post('/roles', roleData);
+      return response.data;
+    } catch (error) {
+      console.error('Error creating role:', error);
+      throw error;
+    }
+  },
+
+  updateRole: async (id, roleData) => {
+    try {
+      const response = await axiosInstance.put(`/roles/${id}`, roleData);
+      return response.data;
+    } catch (error) {
+      console.error('Error updating role:', error);
+      throw error;
+    }
+  },
+
+  deleteRole: async (id) => {
+    try {
+      const response = await axiosInstance.delete(`/roles/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error deleting role:', error);
+      throw error;
+    }
+  },
+
+  // Permissions endpoints
+  getPermissions: async () => {
+    try {
+      const response = await axiosInstance.get('/permissions');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching permissions:', error);
+      throw error;
+    }
+  },
+
+  createPermission: async (permissionData) => {
+    try {
+      const response = await axiosInstance.post('/permissions', permissionData);
+      return response.data;
+    } catch (error) {
+      console.error('Error creating permission:', error);
+      throw error;
+    }
+  },
+
+  updatePermission: async (id, permissionData) => {
+    try {
+      const response = await axiosInstance.put(`/permissions/${id}`, permissionData);
+      return response.data;
+    } catch (error) {
+      console.error('Error updating permission:', error);
+      throw error;
+    }
+  },
+
+  deletePermission: async (id) => {
+    try {
+      const response = await axiosInstance.delete(`/permissions/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error deleting permission:', error);
+      throw error;
+    }
+  },
+
+  // Bulk operations
+  bulkDeleteRoles: async (ids) => {
+    try {
+      const response = await axiosInstance.delete('/roles', {
+        data: { ids: ids.map(id => Number(id)) }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error bulk deleting roles:', error);
+      throw error;
+    }
+  },
+
+  bulkDeletePermissions: async (ids) => {
+    try {
+      const response = await axiosInstance.delete('/permissions', {
+        data: { ids: ids.map(id => Number(id)) }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error bulk deleting permissions:', error);
+      throw error;
+    }
+  }
 };
 
 export default api; 

@@ -16,44 +16,7 @@ export function AppProvider({ children }) {
 
   useEffect(() => {
     loadAllData();
-    setupRealtimeUpdates();
   }, []);
-
-  const setupRealtimeUpdates = () => {
-    const eventSource = new EventSource('http://localhost:3001/api/events');
-    
-    eventSource.onmessage = (event) => {
-      const { type, path, data } = JSON.parse(event.data);
-      
-      switch (type) {
-        case 'INITIAL':
-          updateData(data);
-          break;
-        case 'CREATED':
-        case 'UPDATED':
-        case 'DELETED':
-          if (path.includes('/users')) {
-            setUsers(data);
-          } else if (path.includes('/roles')) {
-            setRoles(data);
-          } else if (path.includes('/permissions')) {
-            setPermissions(data);
-          }
-          break;
-        default:
-          console.log('Unknown event type:', type);
-      }
-    };
-
-    eventSource.onerror = (error) => {
-      console.error('SSE Error:', error);
-      eventSource.close();
-      // Retry connection after 5 seconds
-      setTimeout(setupRealtimeUpdates, 5000);
-    };
-
-    return () => eventSource.close();
-  };
 
   const loadAllData = async () => {
     try {
@@ -73,17 +36,6 @@ export function AppProvider({ children }) {
     }
   };
 
-  const updateData = (data) => {
-    if (data.users) setUsers(data.users);
-    if (data.roles) setRoles(data.roles);
-    if (data.permissions) setPermissions(data.permissions);
-    updateStats(
-      data.users || users,
-      data.roles || roles,
-      data.permissions || permissions
-    );
-  };
-
   const updateStats = (currentUsers, currentRoles, currentPermissions) => {
     setStats({
       totalUsers: currentUsers.length,
@@ -91,6 +43,10 @@ export function AppProvider({ children }) {
       totalPermissions: currentPermissions.length,
       activeSessions: currentUsers.filter(user => user.status === 'Active').length,
     });
+  };
+
+  const refreshData = () => {
+    loadAllData();
   };
 
   return (
@@ -102,6 +58,7 @@ export function AppProvider({ children }) {
       permissions,
       setPermissions,
       stats,
+      refreshData
     }}>
       {children}
     </AppContext.Provider>
