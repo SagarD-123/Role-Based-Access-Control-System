@@ -1,0 +1,190 @@
+{
+  "users": [
+    {
+      "name": "Sagar Deware",
+      "email": "Sagardevre297964@gmail.com",
+      "role": "CEO",
+      "status": "Active",
+      "createdAt": 1732439288058,
+      "id": 1
+    },
+    {
+      "name": "Kamesh",
+      "email": "kameshwardas2@gmail.com",
+      "role": "CTO",
+      "status": "Active",
+      "createdAt": 1732439969607,
+      "id": 2
+    },
+    {
+      "name": "Dipak",
+      "email": "priyankasethi077@gmail.com",
+      "role": "CTO",
+      "status": "Active",
+      "createdAt": 1732440543267,
+      "id": 3
+    },
+    {
+      "name": "vikas mathur",
+      "email": "vikaspedia@gmail.com",
+      "role": "Manager",
+      "status": "Active",
+      "createdAt": 1732440578214,
+      "id": 4
+    },
+    {
+      "name": "Churanta Mondal",
+      "email": "ChurantaMondal@gmail.com",
+      "role": "Designer",
+      "status": "Active",
+      "createdAt": 1732449071331,
+      "id": 5
+    },
+    {
+      "name": "Nishita",
+      "email": "nishita@gmail.com",
+      "role": "HR Lead",
+      "status": "Active",
+      "createdAt": 1732449191400,
+      "id": 6
+    },
+    {
+      "name": "Ambreen",
+      "email": "ambreendidi@gmail.com",
+      "role": "Team Lead",
+      "status": "Active",
+      "createdAt": 1732466286509,
+      "id": 7
+    }
+  ],
+  "roles": [
+    {
+      "name": "Manager",
+      "description": "this manager role",
+      "permissions": [
+        "permission_write",
+        "permission_read"
+      ],
+      "id": 1
+    },
+    {
+      "name": "CTO",
+      "description": "This is CTO",
+      "permissions": [
+        "users_read",
+        "user_write",
+        "role_read",
+        "role_write",
+        "permission_read",
+        "permission_write"
+      ],
+      "id": 2
+    },
+    {
+      "name": "Developer",
+      "description": "this is developer",
+      "permissions": [
+        "users_read"
+      ],
+      "id": 3
+    },
+    {
+      "name": "Designer",
+      "description": "this is designer",
+      "permissions": [
+        "users_read",
+        "user_write",
+        "role_read",
+        "role_write",
+        "permission_read",
+        "permission_write"
+      ],
+      "id": 4
+    },
+    {
+      "name": "Admin",
+      "description": "this is admin",
+      "permissions": [
+        "users_read",
+        "user_write",
+        "role_read",
+        "role_write",
+        "permission_read",
+        "permission_write"
+      ],
+      "id": 5
+    },
+    {
+      "name": "HR Lead",
+      "description": "This is HR",
+      "permissions": [
+        "users_read",
+        "user_write",
+        "role_read",
+        "role_write"
+      ],
+      "id": 6
+    },
+    {
+      "name": "Team Lead",
+      "description": "This is team lead",
+      "permissions": [
+        "users_read",
+        "role_read",
+        "user_write"
+      ],
+      "id": 7
+    },
+    {
+      "name": "CEO",
+      "description": "this is CEO",
+      "permissions": [
+        "users_read",
+        "user_write",
+        "role_read",
+        "role_write",
+        "permission_read",
+        "permission_write",
+        "view"
+      ],
+      "id": 8
+    }
+  ],
+  "permissions": [
+    {
+      "name": "users_read",
+      "description": "Permission view the user info.",
+      "id": 1
+    },
+    {
+      "name": "user_write",
+      "description": "Permission to modify the user",
+      "id": 2
+    },
+    {
+      "name": "role_read",
+      "description": "Permission to view the role privileges.",
+      "id": 3
+    },
+    {
+      "name": "role_write",
+      "description": "Permission to modify the role privileges.",
+      "id": 4
+    },
+    {
+      "name": "permission_read",
+      "description": "Permission to view the permission privileges.",
+      "id": 5
+    },
+    {
+      "name": "permission_write",
+      "description": "Permission to modify the permission.",
+      "id": 6
+    },
+    {
+      "name": "view",
+      "description": "Permission to view the stats",
+      "id": 7
+    }
+  ]
+}
