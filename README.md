@@ -48,7 +48,8 @@ This project implements a comprehensive Role-Based Access Control (RBAC) system.
 ---
 
 ## Hosted Link
-   [https://role-based-access-control-sys-git-800fad-sagar-dewares-projects.vercel.app/](https://role-based-access-control-sys-git-800fad-sagar-dewares-projects.vercel.app/)
+   - Netlify: [https://rbacs-ui.netlify.app/](https://rbacs-ui.netlify.app/)
+   - Vercel: [https://role-based-access-control-sys-git-800fad-sagar-dewares-projects.vercel.app/](https://role-based-access-control-sys-git-800fad-sagar-dewares-projects.vercel.app/)
 
    **credentials**
    - Email: admin
